@@ -217,7 +217,6 @@
     </section>
 
     <script src="{{asset('assets/script.js')}}"></script>
-    <script src="{{asset('assets/js/jquery.js')}}"></script>
-    <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
+
 </body>
 </html>
