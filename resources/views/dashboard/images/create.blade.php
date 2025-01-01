@@ -57,7 +57,7 @@
 
 
                         <div class="form-group">
-                            <button type="submit" class="btn btn-primary"><i class="fa fa-plus"></i>أضف</button>
+                            <button type="submit" class="btn btn-success"><i class="fa fa-plus"></i>أضف</button>
                         </div>
 
                     </form><!-- end of form -->

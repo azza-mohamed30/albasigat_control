@@ -71,6 +71,8 @@
 
              <a href="{{ route('photo.edit',$image->id )}}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> تعديل </a>
 
+             <a href="{{ route('photo.show',$image->id )}}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i> عرض </a>
+
 
                 <form action=" {{ route('photo.destroy', $image->id) }}" method="post" style="display: inline-block">
                     {{ csrf_field() }}

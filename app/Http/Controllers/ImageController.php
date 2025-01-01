@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Image;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use File;
 
 class ImageController extends Controller
 {
-
 
     public function index(Request $request)
     {
@@ -21,20 +21,18 @@ class ImageController extends Controller
     }
 
 
-
     public function create()
     {
-
         $id = auth()->user()->id;
         $users = User::whereId($id)->first();
 
         return view('dashboard.images.create',compact('users'));
-    }
+
+    } //end of create
+
 
     public function store(Request $request)
     {
-
-
 
         $request->validate([
 
@@ -92,13 +90,21 @@ class ImageController extends Controller
     } //end of store
 
 
+    public function show(string $id)
+    {
+        $images = Image::whereId($id)->first();
+        return view('dashboard.images.show',compact('images'));
+
+    }  // end of show
+
+
     public function edit(string $id)
     {
         $images = Image::whereId($id)->first();
         $users = User::whereId($images->user_id)->first();
 
        return view('dashboard.images.edit', compact('users','images'));
-    } // end of store
+    } // end of edit
 
 
     public function update(Request $request, string $id)
@@ -108,16 +114,15 @@ class ImageController extends Controller
         $request->validate([
 
             'title' => 'required',
-            'user_id' => 'required',
            ]);
 
-           $request_data = $request->except(['main_image', 'photo']);
+           $request_data = $request->except(['main_image', 'photo', 'user_id']);
 
            if ($request->main_image) {
 
             if ($images->main_image != 'default.png') {
 
-                Storage::disk('public')->delete('images/photo_images/' . $images->main_image);
+                File::delete($images->main_image);
 
             }//end of inner if
 
@@ -126,7 +131,7 @@ class ImageController extends Controller
               ]);
 
               $image = $request->file('main_image');
-              $imageName = time().'_'.$main_image->getClientOriginalName();
+              $imageName = time().'_'.$image->getClientOriginalName();
               $image->move(public_path('images/photo_images'),$imageName);
 
              $request_data['main_image'] = 'images/photo_images/'.$imageName;
@@ -139,7 +144,7 @@ class ImageController extends Controller
 
             if ($images->photos != 0) {
 
-                Storage::disk('public')->delete('images/photo_images/' . $images->photos);
+                File::delete($images->photos);
 
             }//end of inner if
 
@@ -148,15 +153,16 @@ class ImageController extends Controller
               ]);
 
               $photo = $request->file('photos');
-              $photoName = time().'_'.$photos->getClientOriginalName();
+              $photoName = time().'_'.$photo->getClientOriginalName();
               $photo->move(public_path('images/photo_images'),$photoName);
 
-             $request_data['photos'] = 'images/photo_images/'.$photoName;
+              $request_data['photos'] = 'images/photo_images/'.$photoName;
 
 
         }//end of external if
 
-           $images->update($request_data);
+              $request_data['user_id'] = auth()->user()->id;
+              $images->update($request_data);
 
 
 
@@ -167,22 +173,19 @@ class ImageController extends Controller
 
 
 
-
-
-
     public function destroy(string $id)
     {
-
         $images = Image::whereId($id)->first();
         if ($images->main_image != 0) {
 
-            Storage::disk('public_uploads')->delete('/photo_images/' . $images->main_image);
+            // Storage::disk('public_uploads')->delete('/photo_images/' . $images->main_image);
+            File::delete($images->main_image);
 
         }//end of if
 
         if ($images->photos != 0) {
 
-            Storage::disk('public_uploads')->delete('/photo_images/' . $images->photos);
+            File::delete($images->photos);
 
         }//end of if
 
@@ -190,5 +193,4 @@ class ImageController extends Controller
         session()->flash('success', ('تم حذف الصورة بنجاح'));
         return redirect()->route('photo.index');
     }
-
 }

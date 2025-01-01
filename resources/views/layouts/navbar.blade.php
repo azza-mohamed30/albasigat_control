@@ -6,7 +6,7 @@
       </li>
 
       <li class="nav-item d-none d-sm-inline-block">
-        <a style="color: brown" href="#" class="nav-link">الرئيسية</a>
+        <a style="color: brown" href="/dashboard" class="nav-link">الرئيسية</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <form method="POST" action="{{ route('logout') }}">

@@ -2,7 +2,7 @@
     <!-- Sidebar user panel (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
-        <img src="{{ asset('admin/dist/img/12.jfif') }}" class="img-circle elevation-2" alt="User Image">
+        <img src="{{ asset('admin/dist/img/user_img.jpg') }}" class="img-circle elevation-2" alt="User Image">
       </div>
       <div class="info">
         <a href="#" class="d-block">{{ Auth::user()->name }}</a>
@@ -66,32 +66,161 @@
                 <a href="#" class="nav-link ">
                     <i class="fa fa-th"></i>
                   <p>
-                   قائمة ضبط المستخدمين
+                   قائمة ضبط الإحصائيات
                     <i class="right fas fa-angle-left"></i>
                   </p>
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="/statistic" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
-                      <p> إضافة مستخدم جديد</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="#" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>تعديل مستخدم</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="#" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p> حذف مستخدم</p>
+                      <p> التعديل على الإحصائيات </p>
                     </a>
                   </li>
                 </ul>
 
-          </ul>
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link ">
+                        <i class="fa fa-th"></i>
+                      <p>
+                       قائمة ضبط الحوكمة
+                        <i class="right fas fa-angle-left"></i>
+                      </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                      <li class="nav-item">
+                        <a href="/policie" class="nav-link">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p> تعديل السياسات واللوائح </p>
+                        </a>
+                      </li>
+
+                        <li class="nav-item">
+                          <a href="/financial_report" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p> تعديل التقارير المالية </p>
+                          </a>
+                        </li>
+                    </ul>
+
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link ">
+                            <i class="fa fa-th"></i>
+                          <p>
+                           قائمة ضبط التراخيص
+                            <i class="right fas fa-angle-left"></i>
+                          </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                          <li class="nav-item">
+                            <a href="/liceneses" class="nav-link">
+                              <i class="far fa-circle nav-icon"></i>
+                              <p> عرض وتعديل التراخيص </p>
+                            </a>
+                          </li>
+                        </ul>
+
+                      <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link ">
+                            <i class="fa fa-th"></i>
+                          <p>
+                           قائمة ضبط الموظفين
+                            <i class="right fas fa-angle-left"></i>
+                          </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                          <li class="nav-item">
+                            <a href="/employees" class="nav-link">
+                              <i class="far fa-circle nav-icon"></i>
+                              <p> إضافة وتعديل الموظفين </p>
+                            </a>
+                          </li>
+                        </ul>
+
+
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link ">
+                                <i class="fa fa-th"></i>
+                              <p>
+                               قائمة ضبط الممتلكات
+                                <i class="right fas fa-angle-left"></i>
+                              </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                              <li class="nav-item">
+                                <a href="/owns" class="nav-link">
+                                  <i class="far fa-circle nav-icon"></i>
+                                  <p> العمليات علي الممتلكات </p>
+                                </a>
+                              </li>
+                            </ul>
+
+
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link ">
+                                <i class="fa fa-th"></i>
+                              <p>
+                               قائمة ضبط الاستديو
+                                <i class="right fas fa-angle-left"></i>
+                              </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                              <li class="nav-item">
+                                <a href="/stiduoes" class="nav-link">
+                                  <i class="far fa-circle nav-icon"></i>
+                                  <p> العمليات علي الاستديو </p>
+                                </a>
+                              </li>
+                            </ul>
+
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link ">
+                                    <i class="fa fa-th"></i>
+                                  <p>
+                                   قائمة ضبط تواصل معنا
+                                    <i class="right fas fa-angle-left"></i>
+                                  </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                  <li class="nav-item">
+                                    <a href="/contact_us" class="nav-link">
+                                      <i class="far fa-circle nav-icon"></i>
+                                      <p>   عرض الرسائل </p>
+                                    </a>
+                                  </li>
+                                </ul>
+
+
+                                <li class="nav-item has-treeview">
+                                    <a href="#" class="nav-link ">
+                                        <i class="fa fa-th"></i>
+                                      <p>
+                                       قائمة ضبط الفرص المتاحة
+                                        <i class="right fas fa-angle-left"></i>
+                                      </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                      <li class="nav-item">
+                                        <a href="/opportunity" class="nav-link">
+                                          <i class="far fa-circle nav-icon"></i>
+                                          <p>  اضافة وتعديل الفرص </p>
+                                        </a>
+                                      </li>
+                                    </ul>
+
+
+                                    <li class="nav-item has-treeview">
+                                        <a href="/index" class="nav-link ">
+                                            <i class="fa fa-th"></i>
+                                          <p>
+                                            الموقع التعريفي
+                                            <i class="right fas fa-angle-left"></i>
+                                          </p>
+                                        </a>
+
+
+                      </li>
+                    </ul>
     </nav>
     <!-- /.sidebar-menu -->
   </div>

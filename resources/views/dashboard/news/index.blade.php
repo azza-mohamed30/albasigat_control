@@ -52,7 +52,7 @@
             <th>#</th>
             <th>عنوان الخبر</th>
             <th>تفاصيل الخبر</th>
-            <th> اضافة بواسطة  </th>
+            <th> اضافة وتعديل بواسطة  </th>
             <th>صورة الخبر</th>
             <th>الحدث</th>
         </tr>
@@ -69,6 +69,8 @@
             <td>
 
              <a href="{{ route('news.edit',$new->id )}}" class="btn btn-info btn-sm"><i class="fa fa-edit"></i> تعديل </a>
+
+             <a href="{{ route('news.show',$new->id )}}" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i> عرض </a>
 
 
                 <form action=" {{ route('news.destroy', $new->id) }}" method="post" style="display: inline-block">
