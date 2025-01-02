@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Owns;
 use Illuminate\Http\Request;
-use File;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 class OwnsController extends Controller
 {
@@ -22,7 +23,7 @@ class OwnsController extends Controller
 
     public function create()
     {
-        $id = auth()->user()->id;
+        $id = auth::user()->id;
         $users = User::whereId($id)->first();
         return view('dashboard.owns.create',compact('users'));
     }
@@ -129,7 +130,7 @@ class OwnsController extends Controller
         }//end of if
 
 
-        $request_data['user_id'] = auth()->user()->id;
+        $request_data['user_id'] = auth::user()->id;
 
            $owns->update($request_data);
 

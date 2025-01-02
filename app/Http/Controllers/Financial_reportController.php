@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Financial_report;
-use File;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 class Financial_reportController extends Controller
 {
     public function index(Request $request)
@@ -20,7 +21,7 @@ class Financial_reportController extends Controller
 
     public function create()
     {
-        $id = auth()->user()->id;
+        $id = auth::user()->id;
         $users = User::whereId($id)->first();
         return view('dashboard.financial_reports.create',compact('users'));
     }
@@ -134,7 +135,7 @@ class Financial_reportController extends Controller
         }//end of if
 
 
-        $request_data['user_id'] = auth()->user()->id;
+        $request_data['user_id'] = auth::user()->id;
 
            $reports->update($request_data);
 

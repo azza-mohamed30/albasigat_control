@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Opportunity;
-use File;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 class OpportunityController extends Controller
 {
@@ -21,7 +22,7 @@ class OpportunityController extends Controller
 
     public function create()
     {
-        $id = auth()->user()->id;
+        $id = auth::user()->id;
         $users = User::whereId($id)->first();
 
         return view('dashboard.opportunities.create',compact('users'));
@@ -119,7 +120,7 @@ class OpportunityController extends Controller
 
         }//end of external if
 
-              $request_data['user_id'] = auth()->user()->id;
+              $request_data['user_id'] = auth::user()->id;
               $opportunities->update($request_data);
 
 

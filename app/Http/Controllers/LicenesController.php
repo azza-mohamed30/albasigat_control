@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Licenes;
 use Illuminate\Http\Request;
-use File;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 class LicenesController extends Controller
 {
@@ -22,7 +23,7 @@ class LicenesController extends Controller
 
     public function create()
     {
-        $id = auth()->user()->id;
+        $id = auth::user()->id;
         $users = User::whereId($id)->first();
         return view('dashboard.licenes.create',compact('users'));
     }
@@ -124,7 +125,7 @@ class LicenesController extends Controller
         }//end of if
 
 
-        $request_data['user_id'] = auth()->user()->id;
+        $request_data['user_id'] = auth::user()->id;
 
            $licenes->update($request_data);
 

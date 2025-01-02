@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 use App\Models\Policies;
 use App\Models\User;
 use Illuminate\Http\Request;
-use File;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 class PoliciesController extends Controller
 {
@@ -23,7 +24,7 @@ class PoliciesController extends Controller
 
     public function create()
     {
-        $id = auth()->user()->id;
+        $id = auth::user()->id;
         $users = User::whereId($id)->first();
         return view('dashboard.policies.create',compact('users'));
 
@@ -122,7 +123,7 @@ class PoliciesController extends Controller
         }//end of if
 
 
-        $request_data['user_id'] = auth()->user()->id;
+        $request_data['user_id'] = auth::user()->id;
 
            $policies->update($request_data);
 

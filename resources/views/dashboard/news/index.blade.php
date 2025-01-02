@@ -63,7 +63,7 @@
         <tr>
             <td>{{$index + 1}}</td>
             <td>{{$new->title}}</td>
-            <td>{{$new->description}}</td>
+            <td>{!! $new->description !!}</td>
             <td>{{$new->added->name}}</td>
             <td><img src="{{asset($new->image)}}" style="width: 100px" class="img-thumbnail" alt=""></td>
             <td>

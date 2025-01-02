@@ -6,7 +6,9 @@ use App\Models\Image;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use File;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+
 
 class ImageController extends Controller
 {
@@ -23,7 +25,7 @@ class ImageController extends Controller
 
     public function create()
     {
-        $id = auth()->user()->id;
+        $id = auth::user()->id;
         $users = User::whereId($id)->first();
 
         return view('dashboard.images.create',compact('users'));
@@ -86,7 +88,7 @@ class ImageController extends Controller
 
            session()->flash('success', __('تمت اضافة الصور بنجاح'));
 
-           return redirect()->route('dashboard');
+           return redirect()->route('photo.index');
     } //end of store
 
 
@@ -161,7 +163,7 @@ class ImageController extends Controller
 
         }//end of external if
 
-              $request_data['user_id'] = auth()->user()->id;
+              $request_data['user_id'] = auth::user()->id;
               $images->update($request_data);
 
 

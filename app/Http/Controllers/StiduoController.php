@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 use App\Models\Stiduo;
 use App\Models\User;
-use File;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 
 class StiduoController extends Controller
@@ -20,7 +21,7 @@ class StiduoController extends Controller
 
     public function create()
     {
-        $id = auth()->user()->id;
+        $id = auth::user()->id;
         $users = User::whereId($id)->first();
 
         return view('dashboard.stiduo.create',compact('users'));
@@ -118,7 +119,7 @@ class StiduoController extends Controller
 
         }//end of external if
 
-              $request_data['user_id'] = auth()->user()->id;
+              $request_data['user_id'] = auth::user()->id;
               $images->update($request_data);
 
 

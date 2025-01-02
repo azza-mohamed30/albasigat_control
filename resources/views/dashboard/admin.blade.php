@@ -22,6 +22,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
       {{--noty--}}
       <link rel="stylesheet" href="{{ asset('admin/noty/noty.css') }}">
       <script src="{{ asset('admin/noty/noty.min.js') }}"></script>
+          {{--morris--}}
+    <link rel="stylesheet" href="{{ asset('admin/morris/morris.css') }}">
+
+    {{--<!-- iCheck -->--}}
+    <link rel="stylesheet" href="{{ asset('admin/icheck/all.css') }}">
 
   @yield('css')
   @vite(['resources/css/app.css', 'resources/js/app.js'])

@@ -7,25 +7,16 @@
 <div class="slideshow-container">
 
     <!-- Full-width images with number and caption text -->
+    @foreach ($images as $index=>$image)
+
     <div class="mySlides fade">
-      <div class="numbertext">2 / 3</div>
+      <div class="numbertext">{{$index + 1}} / 3</div>
       <a href="https://forms.gle/ubSZXz5nxYVE7cQt5" target="_blank" rel="noopener noreferrer">  <button class="image-button"> أنضم الينا</button> </a>
-      <img src="{{asset('assets/images/home-basqat2.jpg')}}" style="width:100%">
+      <img src="{{asset($image->main_image)}}" style="width:100%">
     </div>
 
-    <div class="mySlides fade">
-      <div class="numbertext">1 / 3</div>
+    @endforeach
 
-      <img src="{{asset('assets/images/home-basqat.jpg')}}" style="width:100%">
-    </div>
-
-
-
-    <div class="mySlides fade">
-      <div class="numbertext">3 / 3</div>
-
-      <img src="{{asset('assets/images/home-image3.png')}}" style="width:100%">
-    </div>
 
     <!-- Next and previous buttons -->
     <a class="prev" onclick="plusSlides(-1)">&#10094;</a>

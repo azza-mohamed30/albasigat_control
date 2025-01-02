@@ -4,7 +4,7 @@
       Anything you want
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; 2024 <a href="https://adminlte.io">Amina Elwagfia</a>.</strong> All rights reserved.
+    <strong>Copyright &copy; 2024 <a href="">Amina Elwagfia</a>.</strong> All rights reserved.
   </footer>
   <div id="backup_freeze_modal" class="modal fade"  >
     <div class="modal-dialog modal-xl" style=" width: 100%;

@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Employee;
-use File;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 
 class EmployeesController extends Controller
@@ -24,7 +25,7 @@ class EmployeesController extends Controller
 
     public function create()
     {
-        $id = auth()->user()->id;
+        $id = auth::user()->id;
         $users = User::whereId($id)->first();
         return view('dashboard.employees.create',compact('users'));
     }
@@ -52,7 +53,7 @@ class EmployeesController extends Controller
 
               $image = $request->file('image');
               $imageName = time().'_'.$image->getClientOriginalName();
-              $image->move(public_path('images/employees_images'),$imageName);
+              $image->move(public_path('images/employees_images/'),$imageName);
 
              $request_data['image'] = 'images/employees_images/'.$imageName;
 
@@ -122,14 +123,14 @@ class EmployeesController extends Controller
 
               $image = $request->file('image');
               $imageName = time().'_'.$image->getClientOriginalName();
-              $image->move(public_path('images/employees_images'),$imageName);
+              $image->move(public_path('images/employees_images/'),$imageName);
 
              $request_data['image'] = 'images/employees_images/'.$imageName;
 
 
         }//end of external if
 
-           $request_data['user_id'] = auth()->user()->id;
+           $request_data['user_id'] = auth::user()->id;
            $employee->update($request_data);
 
 

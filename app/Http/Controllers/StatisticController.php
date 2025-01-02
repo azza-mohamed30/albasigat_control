@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Statistic;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class StatisticController extends Controller
 {
@@ -20,7 +22,7 @@ class StatisticController extends Controller
      */
     public function create()
     {
-        $id = auth()->user()->id;
+        $id = auth::user()->id;
         $users = User::whereId($id)->first();
         return view('dashboard.statistics.create',compact('users'));
     }// end of create
@@ -89,7 +91,7 @@ class StatisticController extends Controller
            ]);
 
            $request_data = $request->except(['user_id']);
-           $request_data['user_id'] = auth()->user()->id;
+           $request_data['user_id'] = auth::user()->id;
 
            $statistics->update($request_data);
 

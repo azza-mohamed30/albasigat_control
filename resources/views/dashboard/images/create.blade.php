@@ -37,7 +37,7 @@
 
 
                         <div class="form-group">
-                            <label>صورة الخبر الرئيسية</label>
+                            <label>صورة الغلاف الرئيسية</label>
                             <input type="file" name="main_image" class="form-control image">
                         </div>
 
@@ -46,7 +46,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label>صورة الخبر الفرعية</label>
+                            <label>صورة الغلاف الفرعية(اختيارية)</label>
                             <input type="file" name="photos" class="form-control image">
                         </div>
 

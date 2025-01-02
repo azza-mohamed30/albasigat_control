@@ -47,7 +47,7 @@
                 التفاصيل :
                 <br>
                 <br>
-                {{$news->description}}
+                {!! $news->description !!}
             </td>
         </tr>
 

@@ -38,7 +38,7 @@
 
                             <div class="form-group">
                                 <label>تفاصيل الخبر</label>
-                                <textarea name="description" class="form-control ckeditor" >{{ old('description') }}</textarea>
+                                <textarea name="description"  class="form-control ckeditor" >{{ old('description') }}</textarea>
                             </div>
 
 
