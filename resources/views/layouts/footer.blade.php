@@ -4,7 +4,7 @@
       Anything you want
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; 2024 <a href="">Amina Elwagfia</a>.</strong> All rights reserved.
+    <strong>جميع الحقوق محفوظة &copy; <a href=""> فريق إبتكارات المستقبل 2025 </a>.</strong>
   </footer>
   <div id="backup_freeze_modal" class="modal fade"  >
     <div class="modal-dialog modal-xl" style=" width: 100%;
