@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Opportunity;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\DB;
 
 class OpportunityController extends Controller
 {
@@ -32,6 +33,7 @@ class OpportunityController extends Controller
 
     public function store(Request $request)
     {
+        try {
 
         $request->validate([
 
@@ -68,6 +70,10 @@ class OpportunityController extends Controller
            session()->flash('success', __('تمت الاضافة بنجاح'));
 
            return redirect()->route('opportunity.index');
+        } catch (\Exception $ex) {
+            DB::rollBack();
+            return redirect()->back()->with(['error' => 'عفوا حدث خطأ ' . $ex->getMessage()])->withInput();
+        }
     } //end of store
 
 
@@ -92,9 +98,11 @@ class OpportunityController extends Controller
     {
 
         $opportunities = Opportunity::whereId($id)->first();
+        try {
         $request->validate([
 
             'title' => 'required',
+            'user_id' => 'required',
            ]);
 
            $request_data = $request->except(['image', 'user_id']);
@@ -128,6 +136,10 @@ class OpportunityController extends Controller
            session()->flash('success', ('تم التعديل بنجاح'));
 
            return redirect()->route('opportunity.index');
+        } catch (\Exception $ex) {
+            DB::rollBack();
+            return redirect()->back()->with(['error' => 'عفوا حدث خطأ ' . $ex->getMessage()])->withInput();
+        }
     } //end of update
 
 
@@ -135,6 +147,7 @@ class OpportunityController extends Controller
     public function destroy(string $id)
     {
         $opportunities = Opportunity::whereId($id)->first();
+        try {
         if ($opportunities->image != 0) {
 
             File::delete($opportunities->image);
@@ -144,5 +157,9 @@ class OpportunityController extends Controller
         $opportunities->delete();
         session()->flash('success', ('تم الحذف  بنجاح'));
         return redirect()->route('opportunity.index');
+    } catch (\Exception $ex) {
+        DB::rollBack();
+        return redirect()->back()->with(['error' => 'عفوا حدث خطأ ' . $ex->getMessage()])->withInput();
+    }
     }
 }

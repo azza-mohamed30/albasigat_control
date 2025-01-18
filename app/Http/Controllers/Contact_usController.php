@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Contact_us;
+use Illuminate\Support\Facades\DB;
 
 class Contact_usController extends Controller
 {
@@ -32,6 +33,7 @@ class Contact_usController extends Controller
      */
     public function store(Request $request)
     {
+        try {
         $request->validate([
 
             'name' => 'required',
@@ -53,6 +55,11 @@ class Contact_usController extends Controller
            session()->flash('success', __('تمت الإضافة بنجاح'));
 
            return redirect()->route('contact');
+
+        } catch (\Exception $ex) {
+            DB::rollBack();
+            return redirect()->back()->with(['error' => 'عفوا حدث خطأ ' . $ex->getMessage()])->withInput();
+        }
     }
 
     /**
@@ -85,9 +92,14 @@ class Contact_usController extends Controller
     public function destroy(string $id)
     {
         $contact = Contact_us::whereId($id)->first();
-
+         try {
         $contact->delete();
         session()->flash('success', ('تم الحذف بنجاح'));
         return redirect()->route('contact_us.index');
+
+            } catch (\Exception $ex) {
+        DB::rollBack();
+        return redirect()->back()->with(['error' => 'عفوا حدث خطأ ' . $ex->getMessage()])->withInput();
+    }
     }
 }

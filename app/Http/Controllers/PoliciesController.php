@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\DB;
 
 class PoliciesController extends Controller
 {
@@ -33,6 +34,7 @@ class PoliciesController extends Controller
 
     public function store(Request $request)
     {
+        try {
 
         $request->validate([
 
@@ -62,6 +64,10 @@ class PoliciesController extends Controller
            session()->flash('success', __('تمت اضافة السياسة واللائحة بنجاح'));
 
            return redirect()->route('policie.index');
+        } catch (\Exception $ex) {
+            DB::rollBack();
+            return redirect()->back()->with(['error' => 'عفوا حدث خطأ ' . $ex->getMessage()])->withInput();
+        }
 
 
 
@@ -92,10 +98,12 @@ class PoliciesController extends Controller
     {
 
         $policies = Policies::whereId($id)->first();
+        try {
 
         $request->validate([
 
             'policies_title' => 'required',
+            'user_id' => 'required',
 
            ]);
 
@@ -131,6 +139,10 @@ class PoliciesController extends Controller
            session()->flash('success', __('تم تعديل اللائحة السياسية بنجاح'));
 
            return redirect()->route('policie.index');
+        } catch (\Exception $ex) {
+            DB::rollBack();
+            return redirect()->back()->with(['error' => 'عفوا حدث خطأ ' . $ex->getMessage()])->withInput();
+        }
 
     }  //end of update
 
@@ -152,6 +164,7 @@ class PoliciesController extends Controller
     {
 
         $policies = Policies::whereId($id)->first();
+        try {
 
         if (File::exists($policies->policies) ) {
 
@@ -160,6 +173,10 @@ class PoliciesController extends Controller
         $policies->delete();
         session()->flash('success', ('تم الحذف  بنجاح'));
         return redirect()->route('policie.index');
+    } catch (\Exception $ex) {
+        DB::rollBack();
+        return redirect()->back()->with(['error' => 'عفوا حدث خطأ ' . $ex->getMessage()])->withInput();
+    }
 
     } //end of destroy
 }

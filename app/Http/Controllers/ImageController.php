@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
-
+use Illuminate\Support\Facades\DB;
 
 class ImageController extends Controller
 {
@@ -35,6 +35,7 @@ class ImageController extends Controller
 
     public function store(Request $request)
     {
+        try {
 
         $request->validate([
 
@@ -89,6 +90,10 @@ class ImageController extends Controller
            session()->flash('success', __('تمت اضافة الصور بنجاح'));
 
            return redirect()->route('photo.index');
+        } catch (\Exception $ex) {
+            DB::rollBack();
+            return redirect()->back()->with(['error' => 'عفوا حدث خطأ ' . $ex->getMessage()])->withInput();
+        }
     } //end of store
 
 
@@ -113,9 +118,11 @@ class ImageController extends Controller
     {
 
         $images = Image::whereId($id)->first();
+        try {
         $request->validate([
 
             'title' => 'required',
+            'user_id' => 'required',
            ]);
 
            $request_data = $request->except(['main_image', 'photo', 'user_id']);
@@ -171,6 +178,10 @@ class ImageController extends Controller
            session()->flash('success', ('تم التعديل بنجاح'));
 
            return redirect()->route('photo.index');
+        } catch (\Exception $ex) {
+            DB::rollBack();
+            return redirect()->back()->with(['error' => 'عفوا حدث خطأ ' . $ex->getMessage()])->withInput();
+        }
     } //end of update
 
 
@@ -178,6 +189,7 @@ class ImageController extends Controller
     public function destroy(string $id)
     {
         $images = Image::whereId($id)->first();
+        try {
         if ($images->main_image != 0) {
 
             // Storage::disk('public_uploads')->delete('/photo_images/' . $images->main_image);
@@ -194,5 +206,9 @@ class ImageController extends Controller
         $images->delete();
         session()->flash('success', ('تم حذف الصورة بنجاح'));
         return redirect()->route('photo.index');
+    } catch (\Exception $ex) {
+        DB::rollBack();
+        return redirect()->back()->with(['error' => 'عفوا حدث خطأ ' . $ex->getMessage()])->withInput();
+    }
     }
 }

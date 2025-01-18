@@ -6,6 +6,7 @@ use App\Models\Licenes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\DB;
 
 class LicenesController extends Controller
 {
@@ -31,6 +32,7 @@ class LicenesController extends Controller
 
     public function store(Request $request)
     {
+        try {
 
         $request->validate([
 
@@ -62,6 +64,10 @@ class LicenesController extends Controller
            session()->flash('success', __('تمت اضافة الرخصة بنجاح'));
 
            return redirect()->route('liceneses.index');
+        } catch (\Exception $ex) {
+            DB::rollBack();
+            return redirect()->back()->with(['error' => 'عفوا حدث خطأ ' . $ex->getMessage()])->withInput();
+        }
 
     }
 
@@ -92,12 +98,12 @@ class LicenesController extends Controller
     public function update(Request $request, string $id)
     {
         $licenes = Licenes::whereId($id)->first();
+        try {
 
         $request->validate([
 
             'title' => 'required',
-
-
+            'user_id' => 'required',
 
            ]);
 
@@ -133,12 +139,17 @@ class LicenesController extends Controller
            session()->flash('success', __('تم تعديل اللائحة بنجاح'));
 
            return redirect()->route('liceneses.index');
+        } catch (\Exception $ex) {
+            DB::rollBack();
+            return redirect()->back()->with(['error' => 'عفوا حدث خطأ ' . $ex->getMessage()])->withInput();
+        }
     }
 
 
     public function destroy(string $id)
     {
         $licenes = Licenes::whereId($id)->first();
+        try {
 
         if (File::exists($licenes->licenes) ) {
 
@@ -149,5 +160,9 @@ class LicenesController extends Controller
         $licenes->delete();
         session()->flash('success', ('تم الحذف  بنجاح'));
         return redirect()->route('liceneses.index');
+    } catch (\Exception $ex) {
+        DB::rollBack();
+        return redirect()->back()->with(['error' => 'عفوا حدث خطأ ' . $ex->getMessage()])->withInput();
+    }
     }
 }

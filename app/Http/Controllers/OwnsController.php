@@ -7,7 +7,7 @@ use App\Models\Owns;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
-
+use Illuminate\Support\Facades\DB;
 class OwnsController extends Controller
 {
     public function index(Request $request)
@@ -33,6 +33,7 @@ class OwnsController extends Controller
      */
     public function store(Request $request)
     {
+        try {
 
         $request->validate([
 
@@ -58,14 +59,16 @@ class OwnsController extends Controller
 
         }//end of if
 
-
-
            $owns = Owns::create($request_data);
 
 
            session()->flash('success', __('تمت اضافة الممتلك بنجاح'));
 
            return redirect()->route('owns.index');
+        } catch (\Exception $ex) {
+            DB::rollBack();
+            return redirect()->back()->with(['error' => 'عفوا حدث خطأ ' . $ex->getMessage()])->withInput();
+        }
 
     }//end of store
 
@@ -97,13 +100,12 @@ class OwnsController extends Controller
     {
 
         $owns = Owns::whereId($id)->first();
+        try {
 
         $request->validate([
 
             'title' => 'required',
-
-
-
+            'user_id' => 'required',
            ]);
 
            $request_data = $request->except(['owns_file','user_id']);
@@ -138,6 +140,10 @@ class OwnsController extends Controller
            session()->flash('success', __('تم اللتعديل بنجاح'));
 
            return redirect()->route('owns.index');
+        } catch (\Exception $ex) {
+            DB::rollBack();
+            return redirect()->back()->with(['error' => 'عفوا حدث خطأ ' . $ex->getMessage()])->withInput();
+        }
     }
 
     public function download (string $id)
@@ -158,6 +164,7 @@ class OwnsController extends Controller
     public function destroy(string $id)
     {
         $owns = Owns::whereId($id)->first();
+        try {
 
         if ($owns->owns_file != 0) {
 
@@ -169,5 +176,9 @@ class OwnsController extends Controller
         $reports->delete();
         session()->flash('success', ('تم الحذف  بنجاح'));
         return redirect()->route('owns.index');
+    } catch (\Exception $ex) {
+        DB::rollBack();
+        return redirect()->back()->with(['error' => 'عفوا حدث خطأ ' . $ex->getMessage()])->withInput();
+    }
     }
 }

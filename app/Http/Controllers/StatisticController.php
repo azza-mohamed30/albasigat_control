@@ -6,6 +6,7 @@ use App\Models\Statistic;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 
 class StatisticController extends Controller
@@ -32,6 +33,7 @@ class StatisticController extends Controller
      */
     public function store(Request $request)
     {
+        try {
         $request->validate([
 
             'events' => 'required',
@@ -56,6 +58,10 @@ class StatisticController extends Controller
            session()->flash('success', __('تمت الإضافة بنجاح'));
 
            return redirect()->route('dashboard');
+        } catch (\Exception $ex) {
+            DB::rollBack();
+            return redirect()->back()->with(['error' => 'عفوا حدث خطأ ' . $ex->getMessage()])->withInput();
+        }
 
     } //end of store
 
@@ -82,6 +88,7 @@ class StatisticController extends Controller
     public function update(Request $request, string $id)
     {
         $statistics = Statistic::whereId($id)->first();
+        try {
         $request->validate([
 
             'events' => 'required',
@@ -99,17 +106,27 @@ class StatisticController extends Controller
            session()->flash('success', __('تمت التعديل بنجاح'));
 
            return redirect()->route('statistic.index');
+        } catch (\Exception $ex) {
+            DB::rollBack();
+            return redirect()->back()->with(['error' => 'عفوا حدث خطأ ' . $ex->getMessage()])->withInput();
+        }
 
     }// end of update
 
 
     public function destroy(string $id)
     {
+
         $statistics = Statistic::whereId($id)->first();
+        try {
 
         $statistics->delete();
         session()->flash('success', ('تم الحذف بنجاح'));
         return redirect()->route('statistic.index');
+    } catch (\Exception $ex) {
+        DB::rollBack();
+        return redirect()->back()->with(['error' => 'عفوا حدث خطأ ' . $ex->getMessage()])->withInput();
+    }
 
     }//end of destroy
 }

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Financial_report;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\DB;
+
 class Financial_reportController extends Controller
 {
     public function index(Request $request)
@@ -31,6 +33,7 @@ class Financial_reportController extends Controller
      */
     public function store(Request $request)
     {
+        try{
 
         $request->validate([
 
@@ -64,6 +67,10 @@ class Financial_reportController extends Controller
            session()->flash('success', __('تمت اضافة التقرير بنجاح'));
 
            return redirect()->route('financial_report.index');
+        } catch (\Exception $ex) {
+            DB::rollBack();
+            return redirect()->back()->with(['error' => 'عفوا حدث خطأ ' . $ex->getMessage()])->withInput();
+        }
 
     }//end of store
 
@@ -102,6 +109,7 @@ class Financial_reportController extends Controller
     {
 
         $reports = Financial_report::whereId($id)->first();
+        try {
 
         $request->validate([
 
@@ -143,12 +151,18 @@ class Financial_reportController extends Controller
            session()->flash('success', __('تم تعديل التقرير بنجاح'));
 
            return redirect()->route('financial_report.index');
+
+        } catch (\Exception $ex) {
+            DB::rollBack();
+            return redirect()->back()->with(['error' => 'عفوا حدث خطأ ' . $ex->getMessage()])->withInput();
+        }
     }
 
 
     public function destroy(string $id)
     {
         $reports = Financial_report::whereId($id)->first();
+        try {
 
         if ($reports->report != 0) {
 
@@ -160,5 +174,9 @@ class Financial_reportController extends Controller
         $reports->delete();
         session()->flash('success', ('تم الحذف  بنجاح'));
         return redirect()->route('financial_report.index');
+    } catch (\Exception $ex) {
+        DB::rollBack();
+        return redirect()->back()->with(['error' => 'عفوا حدث خطأ ' . $ex->getMessage()])->withInput();
+    }
     }
 }

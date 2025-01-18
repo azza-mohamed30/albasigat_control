@@ -10,6 +10,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <meta http-equiv="x-ua-compatible" content="ie=edge">
 
   <title> @yield('title') </title>
+
+
+
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="{{ asset('admin/plugins/fontawesome-free/css/all.min.css') }}">
   <!-- Theme style -->
@@ -19,6 +22,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="{{ asset('admin/css/bootstrap_rtl-v4.2.1/bootstrap.min.css') }}">
   <link rel="stylesheet" href="{{ asset('admin/css/bootstrap_rtl-v4.2.1/custom_rtl.css') }}">
   <link rel="stylesheet" href="{{ asset('admin/css/mycustomstyle.css') }}">
+
+
+        {{--<!-- Bootstrap 3.3.7 -->--}}
+
+        <link rel="stylesheet" href="{{ asset('admin/assets/css/ionicons.min.css') }}">
+
       {{--noty--}}
       <link rel="stylesheet" href="{{ asset('admin/noty/noty.css') }}">
       <script src="{{ asset('admin/noty/noty.min.js') }}"></script>
@@ -27,9 +36,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     {{--<!-- iCheck -->--}}
     <link rel="stylesheet" href="{{ asset('admin/icheck/all.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/assets/app-DfQ6yC0o.css') }}">
 
   @yield('css')
-  @vite(['resources/css/app.css', 'resources/js/app.js'])
+  {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
+
+
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -75,6 +87,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{{ asset('admin/icheck/icheck.min.js') }}"></script>
 <script src="{{ asset('admin/ckeditor/ckeditor.js') }}"></script>
 <script src="{{ asset('admin/js/some.js') }}"></script>
+<script src="{{ asset('admin/assets/js/custom/image_preview.js') }}"></script>
+<script src="{{ asset('build/assets/app-B3j75nOL.js') }}"></script>
+
+
 
 
 <script>

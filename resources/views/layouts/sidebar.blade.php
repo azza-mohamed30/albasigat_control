@@ -25,15 +25,9 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="/news/create" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p> إضافة الخبر</p>
-              </a>
-            </li>
-            <li class="nav-item">
               <a href="/news" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
-                <p>تعديل وحذف الخبر</p>
+                <p> العمليات على الخبر</p>
               </a>
             </li>
           </ul>
@@ -48,12 +42,6 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="/photo/create" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p> إضافة صورة</p>
-                </a>
-              </li>
               <li class="nav-item">
                 <a href="/photo" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
@@ -208,9 +196,26 @@
                                       </li>
                                     </ul>
 
+                                    <li class="nav-item has-treeview">
+                                        <a href="#" class="nav-link ">
+                                            <i class="fa fa-th"></i>
+                                          <p>
+                                           قائمة ضبط المستخدمين
+                                            <i class="right fas fa-angle-left"></i>
+                                          </p>
+                                        </a>
+                                        <ul class="nav nav-treeview">
+                                          <li class="nav-item">
+                                            <a href="{{ route('users.index') }}" class="nav-link">
+                                              <i class="far fa-circle nav-icon"></i>
+                                              <p>  اضافة مستخدم جديد </p>
+                                            </a>
+                                          </li>
+                                        </ul>
+
 
                                     <li class="nav-item has-treeview">
-                                        <a href="/index" class="nav-link ">
+                                        <a href="{{ route('index') }}" class="nav-link ">
                                             <i class="fa fa-th"></i>
                                           <p>
                                             الموقع التعريفي

@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StiduoController extends Controller
 {
@@ -31,6 +32,7 @@ class StiduoController extends Controller
 
     public function store(Request $request)
     {
+        try {
 
         $request->validate([
 
@@ -54,12 +56,7 @@ class StiduoController extends Controller
 
             $request_data['image'] = 'images/stiduo/'.$imageName;
 
-
-
-
         }//end of if
-
-
 
            $images = Stiduo::create($request_data);
 
@@ -67,6 +64,10 @@ class StiduoController extends Controller
            session()->flash('success', __('تمت اضافة الصور بنجاح'));
 
            return redirect()->route('dashboard');
+        } catch (\Exception $ex) {
+            DB::rollBack();
+            return redirect()->back()->with(['error' => 'عفوا حدث خطأ ' . $ex->getMessage()])->withInput();
+        }
     } //end of store
 
 
@@ -91,9 +92,11 @@ class StiduoController extends Controller
     {
 
         $images = Stiduo::whereId($id)->first();
+        try {
         $request->validate([
 
             'title' => 'required',
+            'user_id' => 'required',
            ]);
 
            $request_data = $request->except(['image', 'user_id']);
@@ -127,6 +130,10 @@ class StiduoController extends Controller
            session()->flash('success', ('تم التعديل بنجاح'));
 
            return redirect()->route('stiduoes.index');
+        } catch (\Exception $ex) {
+            DB::rollBack();
+            return redirect()->back()->with(['error' => 'عفوا حدث خطأ ' . $ex->getMessage()])->withInput();
+        }
     } //end of update
 
 
@@ -134,6 +141,7 @@ class StiduoController extends Controller
     public function destroy(string $id)
     {
         $images = Stiduo::whereId($id)->first();
+        try {
         if ($images->image != 0) {
 
             File::delete($images->image);
@@ -143,5 +151,9 @@ class StiduoController extends Controller
         $images->delete();
         session()->flash('success', ('تم حذف الصورة بنجاح'));
         return redirect()->route('stiduoes.index');
+    } catch (\Exception $ex) {
+        DB::rollBack();
+        return redirect()->back()->with(['error' => 'عفوا حدث خطأ ' . $ex->getMessage()])->withInput();
+    }
     }
 }

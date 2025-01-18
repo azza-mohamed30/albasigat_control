@@ -155,4 +155,13 @@ class WebpageController extends Controller
         return view('webpage.opportunity', compact('opportunities'));
     }
 
+    // public function stat()
+    // {
+    //     $news_count = News::count();
+    //     $employees_count = Employee::count();
+    //     $policies_count = Policies::count();
+    //     $opportunity_count = Opportunity::count();
+    //     return view('dashboard.dashboard', compact('news','employee','policies','opportunity'));
+    // }
+
 }

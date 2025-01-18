@@ -3,7 +3,7 @@
 ضبط عام
 @endsection
 @section('contentheader')
-كافة بيانات المرسلة بواسة زوار الموقع
+كافة البيانات المرسلة بواسطة زوار الموقع
 @endsection
 @section('contentheaderactivelink')
 <a href="/dashboard"> الرئيسية  </a>
